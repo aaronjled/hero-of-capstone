@@ -22,18 +22,19 @@ window.OverworldMaps = {
         lowerSrc: "/images/maps/town-entrance.png",
         upperSrc: "",
         gameObjects: {
-            hero: new GameObject({
-                x: 9,
-                y: 12,
+            hero: new Person({
+                isPlayerControlled: true,
+                x: utils.withGrid(9),
+                y: utils.withGrid(11),
             }),
-            npc1: new GameObject({
-                x: 11,
-                y: 4,
+            npc1: new Person({
+                x: utils.withGrid(11),
+                y: utils.withGrid(4),
                 src: "/images/characters/king.png",
             }),
-            npc2: new GameObject({
-                x: 12,
-                y: 4,
+            npc2: new Person({
+                x:  utils.withGrid(12),
+                y: utils.withGrid(4),
                 src: "/images/characters/princess.png",
             })
 
@@ -44,8 +45,8 @@ window.OverworldMaps = {
         upperSrc: "",
         gameObjects: {
             hero: new GameObject({
-                x: 5,
-                y: 9,
+                x: utils.withGrid(5),
+                y: utils.withGrid(9),
             }),
             npc1: new GameObject({
                 x: 5,
