@@ -28,9 +28,9 @@ class Sprite {
 
         this.isLoaded && ctx.drawImage(this.image,
             0,0,
-            64,64,
-            x,y,
             32,32,
+            x,y,
+            16,16,
         )
     }
 }
