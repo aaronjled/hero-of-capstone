@@ -8,29 +8,65 @@ class Sprite {
         }
         // config animations and initial state
         this.animations = config.animations || {
-            idleDown: [
-                [0,0]
-            ],
-            walkDown: [
-                [0,0], [1,0], [2,0], [3,0],
-            ]
+            "idle-down": [ [0,0] ],
+            "idle-up": [ [2.4,0] ], 
+            "idle-left": [ [6.9,0] ], 
+            "idle-right": [ [4.6,0] ],
+            "walk-down": [ [0,0], [1,0], [0,0], [1,0] ],
+            "walk-up": [ [3.4,0], [2.4,0], [3.4,0], [2.4,0] ],
+            "walk-left": [ [6.9,0], [8,0], [6.9,0], [8,0] ],
+            "walk-right": [ [4.6,0], [5.7,0], [4.6,0], [5.7,0] ],
         }
-        this.currentAnimation = config.currentAnimation || "idleDown";
+        this.currentAnimation = config.currentAnimation || "idle-down";
         this.currentAnimationFrame = 0;
-
+        this.animationFrameLimit = config.animationFrameLimit || 16;
+        this.animationFrameProgress = this.animationFrameLimit;
         //reference game object
         this.gameObject = config.gameObject;
+    }
+
+    get frame() {
+        return this.animations[this.currentAnimation][this.currentAnimationFrame];
+    }
+
+    setAnimation(key) {
+        if (this.currentAnimation !== key) {
+            this.currentAnimation = key;
+            this.currentAnimationFrame = 0;
+            this.animationFrameProgress =this.animationFrameLimit;
+
+        }
+
+    }
+
+    updateAnimationProgress() {
+        //downtick frame progress
+        if (this.animationFrameProgress > 0) {
+            this.animationFrameProgress -= 1;
+            return;
+        }
+
+        //Reset the counter
+        this.animationFrameProgress = this.animationFrameLimit;
+        this.currentAnimationFrame += 1;
+
+        if (this.frame === undefined) {
+            this.currentAnimationFrame = 0;
+        }
     }
 
     draw(ctx) {
         const x = this.gameObject.x - 8;
         const y = this.gameObject.y - 18;
 
+        const [frameX, frameY] = this.frame;
+
         this.isLoaded && ctx.drawImage(this.image,
-            0,0,
-            32,32,
+            frameX * 32, frameY * 32,
+            32, 32,
             x,y,
             16,16,
         )
+        this.updateAnimationProgress();
     }
 }

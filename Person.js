@@ -16,9 +16,10 @@ class Person extends GameObject {
     }
     update(state) {
         this.updatePosition();
+        this.updateSprite(state);
         if (this.movingProgressRemaining === 0 && state.arrow) {
             this.direction = state.arrow;
-            this.movingProgressRemaining = 16;
+            this.movingProgressRemaining = 8;
         }
     }
     //function to ensure objects down move less than 1 frame, and that they move in the proper direction
@@ -27,6 +28,15 @@ class Person extends GameObject {
             const [property, change] = this.directionUpdate[this.direction]
             this[property] += change;
             this.movingProgressRemaining -= 1;
+        }
+    }
+    updateSprite(state) {
+        if (this.PlayerControlled && this.movingProgressRemaining === 0 && !state.arrow){
+        this.sprite.setAnimation("idle-"+this.direction);
+        return;
+        }
+        if (this.movingProgressRemaining > 0) {
+            this.sprite.setAnimation("walk-"+this.direction);
         }
     }
 }
