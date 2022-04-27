@@ -1,7 +1,11 @@
 //sub class of GameObject thats calling the configs of GameObject and going deeper for normal people
-class Person extends GameObject {
+class Hero extends GameObject {
     constructor(config) {
         super(config);
+        this.sprite = new HeroSprite({
+            gameObject: this,
+            src: config.src || "/images/characters/walkanimations.png",
+        });
         this.movingProgressRemaining = 0;
 
         this.PlayerControlled = config.isPlayerControlled || false;
@@ -40,6 +44,7 @@ class Person extends GameObject {
                 return;
             }
             //ready to move
+            state.map.moveWall(this.x, this.y, this.direction);
             this.movingProgressRemaining = 16;
         }
     }
