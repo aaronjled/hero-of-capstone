@@ -26,7 +26,7 @@ class Hero extends GameObject {
             //more cases for starting to come
 
             //Case: keyboard ready with arrow pressed
-            if (this.PlayerControlled && state.arrow) {
+            if (!state.map.isCutscenePlaying && this.PlayerControlled && state.arrow) {
                 this.startBehavior(state, {
                     type: "walk",
                     direction: state.arrow,
@@ -41,11 +41,24 @@ class Hero extends GameObject {
         if (behavior.type === "walk") {
             //stop if space is not free
             if (state.map.isSpaceTaken(this.x, this.y, this.direction)) {
+                behavior.retry && setTimeout(() => {
+                    this.startBehavior(state, behavior)
+                }, 10)
+                
                 return;
             }
             //ready to move
             state.map.moveWall(this.x, this.y, this.direction);
             this.movingProgressRemaining = 16;
+            this.updateSprite(state);
+        }
+
+        if (behavior.type === "stand") {
+            setTimeout(() => {
+                utils.emitEvent("PersonStandComplete", {
+                    whoId: this.id
+                })
+            }, behavior.time)
         }
     }
     //function to ensure objects down move less than 1 frame, and that they move in the proper direction
@@ -53,6 +66,13 @@ class Hero extends GameObject {
         const [property, change] = this.directionUpdate[this.direction]
         this[property] += change;
         this.movingProgressRemaining -= 1;
+        
+        if (this.movingProgressRemaining === 0) {
+            //done with movement
+            utils.emitEvent("PersonWalkingComplete", {
+                whoId: this.id
+            })
+        }
     }
     updateSprite() {
         if (this.movingProgressRemaining > 0) {
