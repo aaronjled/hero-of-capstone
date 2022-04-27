@@ -45,7 +45,7 @@ class GameObject {
 
         //setting next event
         this.behaviorLoopIndex += 1;
-        if (this.behaviorLoopIndex === this.behaviorLoop,length) {
+        if (this.behaviorLoopIndex === this.behaviorLoop.length) {
             this.behaviorLoopIndex = 0;
         }
         //makes it continuous
