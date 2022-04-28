@@ -38,25 +38,42 @@ class Overworld {
         }
         step();
     }
-    init() {
-        this.map = new OverworldMap(window.OverworldMaps.DemoRoom)
+
+    bindActionInput() {
+        new KeyPressListener("Enter", () => {
+            //is there someone here
+            this.map.checkForActionCutscene();
+        })
+    }
+    bindHeroPositionCheck() {
+        document.addEventListener("PersonWalkingComplete", e => {
+            if (e.detail.whoId === "hero") {
+                //Hero Position has changed
+                this.map.checkForFootstepCutscene()
+            }
+        })
+    }
+
+    startMap(mapConfig) {
+        this.map = new OverworldMap(mapConfig);
+        this.map.overworld = this;
         this.map.mountObjects();
+    }
+
+    init() {
+        this.startMap(window.OverworldMaps.Castle);
+
+        this.bindActionInput();
+        this.bindHeroPositionCheck();
+
         this.directionInput = new DirectionInput();
         this.directionInput.init()
 
         this.startGameLoop()
-
-        this.map.startCutscene([
-            {who: "hero", type: "walk", direction: "down"},
-            {who: "hero", type: "stand", direction: "down", time: 400},
-            {who: "hero", type: "walk", direction: "left"},
-            {who: "hero", type: "stand", direction: "left", time: 400},
-            {who: "hero", type: "walk", direction: "up"},
-            {who: "hero", type: "stand", direction: "up", time: 400},
-            {who: "hero", type: "walk", direction: "right"},
-            {who: "hero", type: "stand", direction: "right", time: 400},
-            {who: "npc3", type: "walk", direction: "down"},
-            {who: "hero", type: "stand", direction: "up"},
-        ])
+        
+        // this.map.startCutscene([
+        //     {type: "changeMap", map: "GoblinFort"}
+        // // {type: "textMessage", text: "You Shouldn't have come here"}
+        // ])
     }
 }

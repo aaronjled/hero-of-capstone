@@ -9,9 +9,11 @@ class GameObject {
             gameObject: this,
             src: config.src || "/images/characters/walkanimations.png",
         });
-
+        this.PlayerControlled = config.isPlayerControlled || false; 
         this.behaviorLoop = config.behaviorLoop || [];
         this.behaviorLoopIndex = 0;
+
+        this.talking = config.talking || [];
     }
 
     mount(map) {
@@ -20,10 +22,10 @@ class GameObject {
         map.addWall(this.x, this.y);
 
         //if behavior exists begin after a few seconds.
-        setTimeout(() => {
+            setTimeout(() => {
             this.doBehaviorEvent(map);
 
-        }, 10)
+            }, 10)
     }
 
     update() {
@@ -31,7 +33,7 @@ class GameObject {
     }
     async doBehaviorEvent(map) {
         //stop what you're doing or don't do something during a more important event ie: cutscene
-        if (map.isCutscenePlaying || this.behaviorLoop.length === 0) {
+        if (map.isCutscenePlaying || this.behaviorLoop.length === 0 && this.isStanding) {
             return;
         }
 

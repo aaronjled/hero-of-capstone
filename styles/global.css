@@ -1,3 +1,12 @@
+:root {
+    --border-color: white;
+    --dialog-background: blue;
+    --menu-background: blue;
+    --menu-border-color: white;
+    --menu-font-color: white;
+    --menu-selected-color: lightgrey;
+}
+
 * {
     box-sizing: border-box;
 }

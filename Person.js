@@ -3,6 +3,7 @@ class Person extends GameObject {
     constructor(config) {
         super(config);
         this.movingProgressRemaining = 0;
+        this.isStanding = false;
 
         this.PlayerControlled = config.isPlayerControlled || false;
 
@@ -14,6 +15,7 @@ class Person extends GameObject {
             "right": ["x", 1],
         }
     }
+    
     update(state) {
         if (this.movingProgressRemaining > 0) {
             this.updatePosition();
@@ -40,12 +42,15 @@ class Person extends GameObject {
         }
 
         if (behavior.type === "stand") {
+            this.isStanding = true;
             setTimeout(() => {
                 utils.emitEvent("PersonStandComplete", {
                     whoId: this.id
                 })
+                this.isStanding = false;
             }, behavior.time)
         }
+        
     }
     //function to ensure objects down move less than 1 frame, and that they move in the proper direction
     updatePosition() {

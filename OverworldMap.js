@@ -1,7 +1,9 @@
 class OverworldMap {
     constructor(config) {
+        this.overworld = null;
         this.gameObjects = config.gameObjects;
-        this.walls = config.walls || {}
+        this.cutsceneSpaces = config.cutsceneSpaces || {};
+        this.walls = config.walls || {};
 
         this.lowerImage = new Image();
         this.lowerImage.src = config.lowerSrc;
@@ -61,6 +63,27 @@ class OverworldMap {
         Object.values(this.gameObjects).forEach(object => object.doBehaviorEvent(this))
     }
 
+    checkForActionCutscene() {
+        const hero = this.gameObjects["hero"];
+        const nextCoords = utils.nextPosition(hero.x, hero.y, hero.direction);
+        const match = Object.values(this.gameObjects).find(object => {
+            return `${object.x}, ${object.y}` ===`${nextCoords.x}, ${nextCoords.y}`
+        });
+        if (!this.isCutscenePlaying && match && match.talking.length) {
+            this.startCutscene(match.talking[0].events)
+        }
+    }
+
+    checkForFootstepCutscene() {
+        const hero = this.gameObjects["hero"];
+        const match = this.cutsceneSpaces[`${hero.x},${hero.y}`];
+        
+        if (!this.isCutscenePlaying && match) {
+            this.startCutscene(match[0].events);
+        }
+        
+    }
+
     addWall(x,y) {
         this.walls[`${x},${y}`] = true;
     }
@@ -76,7 +99,7 @@ class OverworldMap {
 }
 
 window.OverworldMaps = {
-    DemoRoom: {
+    Castle: {
         lowerSrc: "/images/maps/town-entrance.png",
         upperSrc: "",
         gameObjects: {
@@ -89,6 +112,22 @@ window.OverworldMaps = {
                 x: utils.withGrid(11),
                 y: utils.withGrid(4),
                 src: "/images/characters/king.png",
+                behaviorLoop: [
+                    {type: "stand", direction: "right", time: 800},
+                    {type: "stand", direction: "down", time: 800}
+
+                ],
+                talking: [
+                    {
+                        events: [
+                            {type: "textMessage", text: "Welcome to Capstone!", faceHero: "npc1"},
+                            {type: "textMessage", text: "Feel free to explore our fine city!"}
+                        ],
+                        // events: [
+                        //     {type: "textMessage", text: "Welcome to Capstone!"}
+                        // ]
+                    }
+                ]
             }),
             npc2: new Person({
                 x:  utils.withGrid(12),
@@ -98,6 +137,17 @@ window.OverworldMaps = {
                     {type: "stand", direction: "left", time: 800},
                     {type: "stand", direction: "down", time: 800}
 
+                ],
+                talking: [
+                    {
+                        events: [
+                            {type: "textMessage", text: "Hello Stranger", faceHero: "npc2"},
+                            {type: "textMessage", text: "It's Dangerous to go alone..."}
+                        ],
+                        // events: [
+                        //     {type: "textMessage", text: "Take this"}
+                        // ]
+                    }
                 ]
             }),
             npc3: new Person({
@@ -113,6 +163,14 @@ window.OverworldMaps = {
                     {type: "stand", direction: "up", time: 800},
                     {type: "walk", direction: "right"},
                     {type: "stand", direction: "right", time: 800},
+                ],
+                talking: [
+                    {
+                        events: [
+                            {type: "textMessage", text: "Welcome to Capstone!", faceHero: "npc3"},
+                            {type: "textMessage", text: "Don't make any trouble, or you'll have to deal with me."}
+                        ]
+                    }
                 ]
             })
 
@@ -132,6 +190,9 @@ window.OverworldMaps = {
             [utils.asGridCoord(7,13)]: true,
             [utils.asGridCoord(8,13)]: true,
             [utils.asGridCoord(9,13)]: true,
+            [utils.asGridCoord(7,0)]: true,
+            [utils.asGridCoord(8,0)]: true,
+            [utils.asGridCoord(9,0)]: true,
             [utils.asGridCoord(10,13)]: true,
             [utils.asGridCoord(11,13)]: true,
             [utils.asGridCoord(12,13)]: true,
@@ -179,20 +240,101 @@ window.OverworldMaps = {
             
            
             
+        },
+        cutsceneSpaces: {
+            [utils.asGridCoord(9,1)]: [
+                {
+                    events: [
+                        {who: "npc1", type: "walk", direction: "left"},
+                        {who: "npc1", type: "walk", direction: "left"},
+                        {who: "npc1", type: "walk", direction: "left"},
+                        {who: "npc1", type: "walk", direction: "up"},
+                        {type: "textMessage", text: "The Castle is off-limits to outsiders"},
+                        {who: "npc1", type: "walk", direction: "down"},
+                        {who: "npc1", type: "walk", direction: "right"},
+                        {who: "npc1", type: "walk", direction: "right"},
+                        {who: "npc1", type: "walk", direction: "right"},
+                        {who: "hero", type: "walk", direction: "down"},
+                        {who: "hero", type: "walk", direction: "down"},
+                        {who: "hero", type: "walk", direction: "down"},
+                        {who: "hero", type: "walk", direction: "down"},
+                        {who: "hero", type: "walk", direction: "right"},
+                        {who: "hero", type: "stand", direction: "right", time: 400},
+                    ]
+                }
+            ],
+            [utils.asGridCoord(8,1)]: [
+                {
+                    events: [
+                        {who: "npc1", type: "walk", direction: "left"},
+                        {who: "npc1", type: "walk", direction: "left"},
+                        {who: "npc1", type: "walk", direction: "left"},
+                        {who: "npc1", type: "walk", direction: "up"},
+                        {type: "textMessage", text: "The Castle is off-limits to outsiders"},
+                        {who: "npc1", type: "walk", direction: "down"},
+                        {who: "npc1", type: "walk", direction: "right"},
+                        {who: "npc1", type: "walk", direction: "right"},
+                        {who: "npc1", type: "walk", direction: "right"},
+                        {who: "hero", type: "walk", direction: "down"},
+                        {who: "hero", type: "walk", direction: "down"},
+                        {who: "hero", type: "walk", direction: "down"},
+                        {who: "hero", type: "walk", direction: "down"},
+                        {who: "hero", type: "walk", direction: "right"},
+                        {who: "hero", type: "stand", direction: "right", time: 400},
+                    ]
+                }
+            ],
+            [utils.asGridCoord(7,1)]: [
+                {
+                    events: [
+                        {who: "npc1", type: "walk", direction: "left"},
+                        {who: "npc1", type: "walk", direction: "left"},
+                        {who: "npc1", type: "walk", direction: "left"},
+                        {who: "npc1", type: "walk", direction: "up"},
+                        {type: "textMessage", text: "The Castle is off-limits to outsiders"},
+                        {who: "npc1", type: "walk", direction: "down"},
+                        {who: "npc1", type: "walk", direction: "right"},
+                        {who: "npc1", type: "walk", direction: "right"},
+                        {who: "npc1", type: "walk", direction: "right"},
+                        {who: "hero", type: "walk", direction: "down"},
+                        {who: "hero", type: "walk", direction: "down"},
+                        {who: "hero", type: "walk", direction: "down"},
+                        {who: "hero", type: "walk", direction: "right"},
+                        {who: "hero", type: "stand", direction: "right", time: 400},
+                    ]
+                }
+            ],
+            [utils.asGridCoord(9,12)]: [
+                {
+                    events: [
+                        {type: "changeMap", map: "GoblinFort"}
+                    ]
+                }
+            ]
+
         }
     },
-    DemoRoom2: {
+    GoblinFort: {
         lowerSrc: "/images/maps/goblin-keep-entrance.png",
         upperSrc: "",
         gameObjects: {
-            hero: new GameObject({
+            hero: new Hero({
+                isPlayerControlled: true,
                 x: utils.withGrid(5),
                 y: utils.withGrid(9),
             }),
-            npc1: new GameObject({
-                x: 5,
-                y: 5,
+            npc1: new Person({
+                x: utils.withGrid(5),
+                y: utils.withGrid(5),
                 src: "/images/characters/king.png",
+                talking: [
+                    {
+                        events: [
+                            {type: "textMessage", text: "You Shouldn't have come here", faceHero: "npc1"},
+                            {type: "textMessage", text: "I'll make sure you never leave though"}
+                        ]
+                    }
+                ]
             })
 
         }

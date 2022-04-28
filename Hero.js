@@ -7,6 +7,7 @@ class Hero extends GameObject {
             src: config.src || "/images/characters/walkanimations.png",
         });
         this.movingProgressRemaining = 0;
+        this.isStanding = false;
 
         this.PlayerControlled = config.isPlayerControlled || false;
 
@@ -54,10 +55,12 @@ class Hero extends GameObject {
         }
 
         if (behavior.type === "stand") {
+            this.isStanding = true;
             setTimeout(() => {
                 utils.emitEvent("PersonStandComplete", {
                     whoId: this.id
                 })
+                this.isStanding = false;
             }, behavior.time)
         }
     }
