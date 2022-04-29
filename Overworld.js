@@ -71,9 +71,9 @@ class Overworld {
 
         this.startGameLoop()
         
-        // this.map.startCutscene([
-        //     {type: "changeMap", map: "GoblinFort"}
-        // // {type: "textMessage", text: "You Shouldn't have come here"}
-        // ])
+        this.map.startCutscene([
+            {type: "battle"}
+        // {type: "textMessage", text: "You Shouldn't have come here"}
+        ])
     }
 }

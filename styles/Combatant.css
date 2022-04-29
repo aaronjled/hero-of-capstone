@@ -1,0 +1,134 @@
+.Combatant {
+    width: 67px;
+    height: 14px;
+    background: url("/images/ui/combatant-plate.png") no-repeat no-repeat;
+    position: absolute;
+  }
+  
+  .Battle .Combatant {
+    transform: scale(.7);
+  }
+  .Battle .Combatant[data-active="false"] {
+    opacity: 0;
+  }
+  .Battle .Combatant[data-active="true"] {
+    opacity: 1;
+  }
+
+  .Combatant[data-team="player"] {
+    right: 40px;
+    top: 50px;
+  }
+  .Combatant[data-team="enemy"] {
+    top: 28px;
+    left: 50px;
+  }
+  
+  .Combatant_character_crop {
+    position: absolute;
+    bottom: 1px;
+    left:3px;
+    width: 22px;
+    height: 12px;
+    overflow:hidden;
+  }
+  .Combatant_character {
+    display:block;
+    position: absolute;
+    left: -11px;
+    bottom: -7px;
+  }
+  .Battle .Combatant_character_crop {
+    display:none;
+  }
+  
+  .Combatant_name {
+    position: absolute;
+    left:-2px;
+    top:-8px;
+    white-space: nowrap;
+    background: var(--menu-font-color);
+    color: blue;
+    font-size: 5px; /*This is only so small because the component is scaled 2x in battle which is weird */
+    padding-left: 2px;
+    padding-right: 2px;
+    margin: 0;
+  }
+  .Combatant_type {
+    position: absolute;
+    left: 2.5px;
+    top: 3px;
+    width: 16px;
+    height: 8px;
+  }
+  
+  .Combatant_life-container {
+    position: absolute;
+    left:20px;
+    top:4px;
+    width: 26px;
+    height: 3px;
+  }
+  .Combatant_life-container > rect {
+    transition: width 0.2s;
+  }
+  
+  .Combatant_exp-container {
+    position: absolute;
+    left:20px;
+    top:8px;
+    width: 26px;
+    height: 2px;
+  }
+  .Combatant_level {
+    position: absolute;
+    font-size: 10px;
+    right: 2px;
+    top: -1px;
+    width: 17px;
+    height: 12px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    background: blue;
+    color: white;
+    border: 1px solid white;
+    margin: 0;
+  }
+  
+  .Combatant_status {
+    position: absolute;
+    font-size: 5px;
+    left: 47px;
+    bottom: -3px;
+    padding-left: 2px;
+    padding-right: 2px;
+    background: rgba(0,0,0,0.8);
+    color: white;
+    margin: 0;
+  }
+  .Combatant_status[data-status="buff"] {
+    color: red;
+  }
+  .Combatant_status[data-status="debuff"] {
+    background: #582a79;
+  }
+  
+  .Hero {
+    position: absolute;
+    transform: scale(.5);
+  }
+  .Hero[data-team="player"] {
+    bottom: 90px;
+    right: 50px;
+  }
+  .Hero[data-team="enemy"] {
+    top: 20px;
+    left: 30px;
+  }
+  .Hero[data-active="false"] {
+    opacity:0;
+  }
+  .Hero[data-active="true"] {
+    opacity:1;
+  }

@@ -1,0 +1,39 @@
+.Battle {
+position: absolute;
+left: 0;
+right: 0;
+top: 0;
+bottom: 0;
+background-image: url(/images/maps/goblincave.png);
+background-size: cover;
+image-rendering: pixelated;
+}
+/* .Battle_hero, .Battle_hero2 {
+    position: absolute;
+    transform: scale(.5);
+    width: 64px;
+    height: 80px;
+    overflow: hidden;
+}
+.Battle_enemy {
+    position: absolute;
+    transform: scale(.5);
+    width: 96px;
+    height: 96px;
+    overflow: hidden;
+}
+.Battle_hero img, .Battle_enemy img {
+    pointer-events: none;
+}
+.Battle_hero {
+bottom: 100px;
+left: 200px;
+}
+/* .Battle_hero2 {
+    bottom: 70px;
+    left: 210px;
+} */
+/* .Battle_enemy {
+    bottom: 80px;
+    left: 20px;
+} */ 
