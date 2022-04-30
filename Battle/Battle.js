@@ -9,7 +9,10 @@ class Battle {
                 exp: 50,
                 maxExp: 100,
                 level: 1,
-                status: null,
+                status: {
+                    type: "bloodlust",
+                    expiresIn: 3
+                },
             }, this),
             // "player2" : new Combatant( {
             //     ...characters["h002"],
@@ -61,5 +64,16 @@ class Battle {
             combatant.init(this.element)    
 
         })
+
+        this.turnCycle = new TurnCycle({
+            battle: this,
+            onNewEvent: event => {
+                return new Promise(resolve => {
+                    const battleEvent = new BattleEvent(event, this)
+                    battleEvent.init(resolve);
+                })
+            }
+        })
+        this.turnCycle.init();
     }
 }

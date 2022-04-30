@@ -29,11 +29,11 @@ class Combatant {
             <img class="Combatant_character" alt="${this.name}" src="${this.src}" />
         </div>
         <img class="Combatant_type" src="${this.icon}" alt="${this.type}" />
-        <svg viewBox="0 0 26 3" class=Combatant_life-container">
+        <svg viewBox="0 0 26 3" class="Combatant_life-container">
             <rect x=0 y=0 width="0%" height=1 fill="#82ff71" />
             <rect x=0 y=1 width="0%" height=1 fill="#3ef126" />
         </svg>
-        <svg viewBox="0 0 26 2" class=Combatant_exp-container">
+        <svg viewBox="0 0 26 2" class="Combatant_exp-container">
         <rect x=0 y=0 width="0%" height=1 fill="#ffd76a" />
         <rect x=0 y=1 width="0%" height=1 fill="#ffc934" />
     </svg>
@@ -58,10 +58,21 @@ class Combatant {
         //update active flag
         this.hudElement.setAttribute("data-active", this.isActive);
         this.characterElement.setAttribute("data-active", this.isActive);
-
+        //update health adn exp
         this.hpFills.forEach(rect => rect.style.width = `${this.hpPercent}%`);
         this.expFills.forEach(rect => rect.style.width = `${this.expPercent}%`);
+        //update level
         this.hudElement.querySelector(".Combatant_level").innerText = this.level;
+
+        //update status
+        const statusElement = this.hudElement.querySelector(".Combatant_status");
+        if (this.status) {
+            statusElement.innerText = this.status.type;
+            statusElement.style.display = "block";
+        }else {
+            statusElement.innerText = "";
+            statusElement.style.display = "none";
+        }
 
     }
 

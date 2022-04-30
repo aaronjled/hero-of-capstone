@@ -8,6 +8,33 @@ background-image: url(/images/maps/goblincave.png);
 background-size: cover;
 image-rendering: pixelated;
 }
+/* Animation*/
+@keyframes battle-damage-blink {
+    to {
+        visibility: hidden;
+    }
+}
+.battle-damage-blink {
+    animation: battle-damage-blink 0.3s steps(2, start) infinite;
+}
+@keyframes battle-spin-right {
+    0% {transform:  translate3d(0,0,0) rotate(0deg) scale(.5);}
+    25% {transform:  translate3d(50%, 0, 0) rotate(0deg) scale(.5);}
+    100% {transform:  translate3d(0,0,0) rotate(0deg) scale(.5);}
+}
+.battle-spin-right {
+    animation: battle-spin-right 0.8s;
+}
+@keyframes battle-spin-left {
+    0% {transform:  translate3d(0,0,0) rotate(0deg) scale(.5);}
+    25% {transform:  translate3d(-50%, 0, 0) rotate(0deg) scale(.5);}
+    100% {transform:  translate3d(0,0,0) rotate(0deg) scale(.5);}
+}
+.battle-spin-left {
+    animation: battle-spin-left 0.8s;
+}
+
+
 /* .Battle_hero, .Battle_hero2 {
     position: absolute;
     transform: scale(.5);
