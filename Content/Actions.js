@@ -2,6 +2,7 @@ window.Actions = {
     slash: {
         name: "Slash",
         type: "slash",
+        description: "Slash single Enemy with your Sword",
         success: [
             {type: "textMessage", text: "{CASTER} used {ACTION}!"},
             {type: "animation", animation: "attack"},
@@ -11,6 +12,7 @@ window.Actions = {
     stab: {
         name: "Stab",
         type: "pierce",
+        description: "Stab single Enemy with your Dagger",
         success: [
             {type: "textMessage", text: "{CASTER} used {ACTION}!"},
             {type: "animation", animation: "attack"},
@@ -20,15 +22,17 @@ window.Actions = {
     bash: {
         name: "Bash",
         type: "blunt",
+        description: "Bash single Enemy with your Club",
         success: [
             {type: "textMessage", text: "{CASTER} used {ACTION}!"},
             {type: "animation", animation: "attack"},
-            {type: "stateChange", damage: 12},
+            {type: "stateChange", damage: 20},
         ]
     },
     bloodlust: {
         name: "Blood Lust",
         targetType: "friendly",
+        description: "Constant Battle Makes you Stronger: Heal 25 HP per turn",
         success: [
             {type: "textMessage", text: "{CASTER} used {ACTION}!"},
             {type: "animation", animation: "selfOrb", color: "red"},
@@ -38,6 +42,7 @@ window.Actions = {
     weaken: {
         name: "Weaken",
         targetType: "enemy",
+        description: "Lower targets Attack",
         success: [
             {type: "textMessage", text: "{CASTER} used {ACTION}!"},
             {type: "animation", animation: "orb", color: "purple"},
@@ -48,6 +53,7 @@ window.Actions = {
     blind: {
         name: "Blind",
         targetType: "enemy",
+        description: "Lower targets Accuracy",
         success: [
             {type: "textMessage", text: "{CASTER} used {ACTION}!"},
             {type: "animation", animation: "orb", color: "black"},
