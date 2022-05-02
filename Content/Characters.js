@@ -14,20 +14,20 @@ window.characters = {
         type: PhysicalTypes.slash,
         src: "/images/characters/battle-knight.png",
         icon: "/images/icons/sword.png",
-        actions: ["damage1"],
+        actions: ["slash","bloodlust", "weaken", "blind"],
     },
     "h002": {
         name: "Thief",
         type: PhysicalTypes.pierce,
         src: "/images/characters/thief.png",
         icon: "/images/icons/thief.png",
-        actions: ["damage1"],
+        actions: ["stab"],
     },
     "e001": {
         name: "Troll",
         type: PhysicalTypes.blunt,
         src: "/images/characters/troll.png",
         icon: "/images/icons/monster.png",
-        actions: ["damage1"],
+        actions: ["bash"],
     }
 }

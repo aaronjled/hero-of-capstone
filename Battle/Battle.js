@@ -1,7 +1,7 @@
 class Battle {
     constructor() {
         this.combatants = {
-            "player" : new Combatant( {
+            "player1" : new Combatant( {
                 ...characters["h001"],
                 team: "player",
                 hp: 100,
@@ -9,26 +9,24 @@ class Battle {
                 exp: 50,
                 maxExp: 100,
                 level: 1,
-                status: {
-                    type: "bloodlust",
-                    expiresIn: 3
-                },
+                status: null,
+                isPlayerControlled: true,
             }, this),
-            // "player2" : new Combatant( {
-            //     ...characters["h002"],
-            //     team: "player",
-            //     hp: 100,
-            //     maxHp: 100,
-            //     exp: 50,
-            //     maxExp: 100,
-            //     level: 1,
-            //     status: null,
-            // }, this),
+            "player2" : new Combatant( {
+                ...characters["h002"],
+                team: "player",
+                hp: 100,
+                maxHp: 100,
+                exp: 50,
+                maxExp: 100,
+                level: 1,
+                status: null,
+            }, this),
             "enemy1" : new Combatant( {
                 ...characters["e001"],
                 team: "enemy",
-                hp: 500,
-                maxHp: 500,
+                hp: 100,
+                maxHp: 100,
                 exp: 0,
                 maxExp: 100,
                 level: 5,
@@ -36,7 +34,7 @@ class Battle {
             }, this),
         }
         this.activeCombatants = {
-            player: "player",
+            player: "player1",
             enemy: "enemy1"
         }
         

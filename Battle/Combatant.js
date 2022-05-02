@@ -58,7 +58,7 @@ class Combatant {
         //update active flag
         this.hudElement.setAttribute("data-active", this.isActive);
         this.characterElement.setAttribute("data-active", this.isActive);
-        //update health adn exp
+        //update health and exp
         this.hpFills.forEach(rect => rect.style.width = `${this.hpPercent}%`);
         this.expFills.forEach(rect => rect.style.width = `${this.expPercent}%`);
         //update level
@@ -74,6 +74,41 @@ class Combatant {
             statusElement.style.display = "none";
         }
 
+    }
+
+    getReplacedEvents(originalEvents) {
+        if(this.status?.type === "blind" && utils.randomFromArray([true, false, false])) {
+            return[
+                {type: "textMessage", text: `${this.name} missed`}
+            ]
+        }
+        return originalEvents;
+    }
+
+    getPostEvents() {
+        if (this.status?.type === "bloodlust") {
+            return [
+                {type: "textMessage", text: "Your Blood Lust consumes you"},
+                {type: "stateChange", recover: 25, onCaster: true},
+            ]
+        }
+        return [];
+    }
+
+    removeStatus() {
+        if (this.status?.expiresIn > 0) {
+            this.status.expiresIn -= 1;
+            if(this.status.expiresIn === 0) {
+                this.update({
+                    status: null
+                })
+                return {
+                    type: "textMessage",
+                    text: "Status has expired",
+                }
+            }
+        }
+        return null;
     }
 
     init(container) {

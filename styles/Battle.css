@@ -17,23 +17,61 @@ image-rendering: pixelated;
 .battle-damage-blink {
     animation: battle-damage-blink 0.3s steps(2, start) infinite;
 }
-@keyframes battle-spin-right {
+@keyframes attack-right {
     0% {transform:  translate3d(0,0,0) rotate(0deg) scale(.5);}
     25% {transform:  translate3d(50%, 0, 0) rotate(0deg) scale(.5);}
     100% {transform:  translate3d(0,0,0) rotate(0deg) scale(.5);}
 }
-.battle-spin-right {
-    animation: battle-spin-right 0.8s;
+.attack-right {
+    animation: attack-right 0.8s;
 }
-@keyframes battle-spin-left {
+@keyframes attack-left {
     0% {transform:  translate3d(0,0,0) rotate(0deg) scale(.5);}
     25% {transform:  translate3d(-50%, 0, 0) rotate(0deg) scale(.5);}
     100% {transform:  translate3d(0,0,0) rotate(0deg) scale(.5);}
 }
-.battle-spin-left {
-    animation: battle-spin-left 0.8s;
+.attack-left {
+    animation: attack-left 0.8s;
+}
+.orb {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    
+}
+@keyframes orb-right {
+    0% {transform: translate3d(0,0,0) scale(.5); opacity: 1;}
+    25% {transform: translate3d(10px,0,1) scale(1); opacity: 1;}
+    50% {transform: translate3d(149px, 0px ,0) scale(1); opacity: 1;}
+    100% {transform: translate3d(149px, 0px ,0) scale(3); opacity: 0;}
+}
+.orb-right {
+    left: 100px;
+    top: 70px;
+    animation: orb-right 1s forwards;
 }
 
+@keyframes orb-left {
+    0% {transform: translate3d(0,0,0) scale(.5); opacity: 1;}
+    25% {transform: translate3d(-10px,0,1) scale(1); opacity: 1;}
+    50% {transform: translate3d(-174px, 0px ,0) scale(1); opacity: 1;}
+    100% {transform: translate3d(-174px,0px ,0) scale(3); opacity: 0;}
+}
+.orb-left {
+    left: 227px;
+    top: 60px;
+    animation: orb-left 1s forwards;
+}
+@keyframes self-orb-blink {
+    to {
+        visibility: hidden;
+    }
+} 
+.self-orb-blink-right {
+    right: 67px;
+    top: 62px;
+    animation: self-orb-blink 0.2s steps(2, start) 2;
+}
 
 /* .Battle_hero, .Battle_hero2 {
     position: absolute;
