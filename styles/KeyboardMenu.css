@@ -21,7 +21,7 @@
     background: var(--menu-selected-color);
     outline: 0;
 }
-.KeyboardMenu .option {
+.KeyboardMenu .options {
     position: relative;
 }
 .KeyboardMenu .option .right {
@@ -29,6 +29,7 @@
     right: 0;
     top: 0;
     bottom: 0;
+    font-size: 10px;
 }
 .DescriptionBox {
     position: absolute;

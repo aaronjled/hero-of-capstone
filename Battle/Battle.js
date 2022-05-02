@@ -37,6 +37,11 @@ class Battle {
             player: "player1",
             enemy: "enemy1"
         }
+        this.items = [
+            {actionId: "item_healthPotion", itemId: "p1", team: "player"},
+            {actionId: "item_healthPotion", itemId: "p2", team: "player"},
+            {actionId: "item_healthPotion", itemId: "p3", team: "enemy"}
+        ]
         
     }
     createElement() {
@@ -70,7 +75,8 @@ class Battle {
                     const battleEvent = new BattleEvent(event, this)
                     battleEvent.init(resolve);
                 })
-            }
+            },
+            
         })
         this.turnCycle.init();
     }

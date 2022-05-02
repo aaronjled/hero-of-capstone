@@ -12,7 +12,7 @@ class KeyboardMenu {
             const disabledMenu = option.disabled ? "disabled" : "";
             return (`
             <div class = "options","menu-blink">
-                <button ${disabledMenu}  data-button="${index}" data-description="${option.description}">
+                <button ${disabledMenu} data-button="${index}" data-description="${option.description}">
                     ${option.label}
                 </button>
                 <span class ="right">${option.right ? option.right() : ""}</span>

@@ -28,6 +28,6 @@ window.characters = {
         type: PhysicalTypes.blunt,
         src: "/images/characters/troll.png",
         icon: "/images/icons/monster.png",
-        actions: ["bash"],
+        actions: ["bash", "bloodlust", "weaken", "blind"],
     }
 }

@@ -60,5 +60,16 @@ window.Actions = {
             {type: "stateChange", status:{type: "blind", expiresIn: 3}},
             {type: "textMessage", text: "{TARGET} has lowered Accuracy"}
         ]
+    },
+    //items
+    item_healthPotion: {
+        name: "Health Potion",
+        description: "Heal 50 Hp",
+        targetType: "friendly",
+        success: [
+            {type: "textMessage", text: "{CASTER} used {ACTION} Healed for 50 Hp"},
+            {type: "stateChange", recover: 50},
+        ]
+
     }
 }
